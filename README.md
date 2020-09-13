@@ -14,7 +14,7 @@ USAGE
 ```
 Get-UKBankHoliday [[-Month] <Int32>] 
                   [-Year] <Int32> 
-                  [-Jurisdiction] <String> 
+                  [-Jurisdiction] {england-and-wales | scotland | northern-ireland}
 ```
 
 EXAMPLES
