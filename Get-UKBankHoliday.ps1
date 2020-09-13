@@ -17,14 +17,14 @@ Function Get-UKBankHoliday {
     <#
     .SYNOPSIS
         Gets UK bank holiday dates for a specific jurisdiction (England and 
-		Wales, Scotland or Northern Ireland).
+	Wales, Scotland or Northern Ireland).
         
     .DESCRIPTION
         Uses the GOV.UK Bank Holidays API to obtain bank holiday dates for a
-		specific jurisdiction (England and Wales, Scotland or Northern Ireland)
-		in a given year and (optionally) month.
+	specific jurisdiction (England and Wales, Scotland or Northern Ireland)
+	in a given year and (optionally) month.
 		
-		For further details about GOV.UK APIs, see https://www.gov.uk/help/reuse-govuk-content
+	For further details about GOV.UK APIs, see https://www.gov.uk/help/reuse-govuk-content
     
     .EXAMPLE  
         Get-UKBankHoliday -Month 4 -Year 2021 -Jurisdiction england-and-wales
@@ -65,8 +65,8 @@ Function Get-UKBankHoliday {
         [parameter(Mandatory=$True)]
         [Int]$Year,
 		
-		[parameter(Mandatory=$True)]
-		[ValidateSet('england-and-wales','scotland','northern-ireland')]
+	[parameter(Mandatory=$True)]
+	[ValidateSet('england-and-wales','scotland','northern-ireland')]
         [String]$Jurisdiction
     )
 	
