@@ -9,6 +9,8 @@ Uses the GOV.UK Bank Holidays API to obtain bank holiday dates for a specific
 jurisdiction (England and Wales, Scotland or Northern Ireland) in a given year 
 and (optionally) month.
 
+For further details about GOV.UK APIs, see https://www.gov.uk/help/reuse-govuk-content
+
 USAGE
 -----
 ```
