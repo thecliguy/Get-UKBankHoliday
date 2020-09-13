@@ -17,14 +17,14 @@ Function Get-UKBankHoliday {
     <#
     .SYNOPSIS
         Gets UK bank holiday dates for a specific jurisdiction (England and 
-	Wales, Scotland or Northern Ireland).
+        Wales, Scotland or Northern Ireland).
         
     .DESCRIPTION
         Uses the GOV.UK Bank Holidays API to obtain bank holiday dates for a
-	specific jurisdiction (England and Wales, Scotland or Northern Ireland)
-	in a given year and (optionally) month.
-		
-	For further details about GOV.UK APIs, see https://www.gov.uk/help/reuse-govuk-content
+        specific jurisdiction (England and Wales, Scotland or Northern Ireland)
+        in a given year and (optionally) month.
+        
+        For further details about GOV.UK APIs, see https://www.gov.uk/help/reuse-govuk-content
     
     .EXAMPLE  
         Get-UKBankHoliday -Month 4 -Year 2021 -Jurisdiction england-and-wales
@@ -60,45 +60,45 @@ Function Get-UKBankHoliday {
     [CmdletBinding()]
     Param(
         [parameter(Mandatory=$False)]
-	[ValidateRange(1,12)]
+        [ValidateRange(1,12)]
         [Int]$Month,
         
         [parameter(Mandatory=$True)]
         [Int]$Year,
-		
-	[parameter(Mandatory=$True)]
-	[ValidateSet('england-and-wales','scotland','northern-ireland')]
+        
+        [parameter(Mandatory=$True)]
+        [ValidateSet('england-and-wales','scotland','northern-ireland')]
         [String]$Jurisdiction
     )
-	
-	$GovUkBankHolidaysApi = "https://www.gov.uk/bank-holidays.json"
-	
-	# I wanted all errors produced by Invoke-RestMethod to be terminating, 
-	# however the cmdlet doesn't respect '-ErrorAction Stop'. As a workaround, 
-	# wrapping the cmdlet in a Try/Catch and throwing an error works (AR). 
-	Try {
-		$Holidays = Invoke-RestMethod -Uri $GovUkBankHolidaysApi -ErrorAction Stop | Select-Object -expandproperty $Jurisdiction
-	}
-	Catch {
-		Throw $_
-	}
     
-	# Check that the API supports the specified year.
-	If (!($Holidays.Events.Date.ForEach({ (Get-Date $_).Where({ $_.Year -eq $Year }) }))) {
-		Throw "The GOV.UK Bank Holidays API doesn't support the year $($Year)."
-	}
-	
-	If ($PSBoundParameters.ContainsKey('Month')) {
-		$RetVal = $Holidays.Events.Where({ ((Get-Date -Date $_.Date).Month -eq $Month) -and ((Get-Date -Date $_.Date).Year -eq $Year) })
-	}
-	Else {
-		$RetVal = $Holidays.Events.Where({ (Get-Date -Date $_.Date).Year -eq $Year })
-	}
-	
-	# Convert the date property from a string to a DateTime type.
-	If ($RetVal) {
-		$RetVal.ForEach({ $_.Date = [System.DateTime]::ParseExact($_.Date, 'yyyy-MM-dd', $null) })
-	}
-	
-	$RetVal
+    $GovUkBankHolidaysApi = "https://www.gov.uk/bank-holidays.json"
+    
+    # I wanted all errors produced by Invoke-RestMethod to be terminating, 
+    # however the cmdlet doesn't respect '-ErrorAction Stop'. As a workaround, 
+    # wrapping the cmdlet in a Try/Catch and throwing an error works (AR). 
+    Try {
+        $Holidays = Invoke-RestMethod -Uri $GovUkBankHolidaysApi -ErrorAction Stop | Select-Object -expandproperty $Jurisdiction
+    }
+    Catch {
+        Throw $_
+    }
+    
+    # Check that the API supports the specified year.
+    If (!($Holidays.Events.Date.ForEach({ (Get-Date $_).Where({ $_.Year -eq $Year }) }))) {
+        Throw "The GOV.UK Bank Holidays API doesn't support the year $($Year)."
+    }
+    
+    If ($PSBoundParameters.ContainsKey('Month')) {
+        $RetVal = $Holidays.Events.Where({ ((Get-Date -Date $_.Date).Month -eq $Month) -and ((Get-Date -Date $_.Date).Year -eq $Year) })
+    }
+    Else {
+        $RetVal = $Holidays.Events.Where({ (Get-Date -Date $_.Date).Year -eq $Year })
+    }
+    
+    # Convert the date property from a string to a DateTime type.
+    If ($RetVal) {
+        $RetVal.ForEach({ $_.Date = [System.DateTime]::ParseExact($_.Date, 'yyyy-MM-dd', $null) })
+    }
+    
+    $RetVal
 }
