@@ -48,4 +48,4 @@ Boxing Day             28/12/2021 00:00:00 Substitute day    True
 
 FURTHER READING
 ---------------
-This function features in a blog post I wrote, see https://www.thecliguy.co.uk/2020/01/25/get-the-nth-working-day-of-the-month/
+This function features in a blog post I wrote, see [Get the Nth Working Day of the Month](https://www.thecliguy.co.uk/2020/01/25/get-the-nth-working-day-of-the-month/).
