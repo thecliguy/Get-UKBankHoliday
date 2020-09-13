@@ -60,6 +60,7 @@ Function Get-UKBankHoliday {
     [CmdletBinding()]
     Param(
         [parameter(Mandatory=$False)]
+	[ValidateRange(1,12)]
         [Int]$Month,
         
         [parameter(Mandatory=$True)]
